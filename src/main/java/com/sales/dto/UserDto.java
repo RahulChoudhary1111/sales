@@ -14,4 +14,5 @@ public class UserDto {
     private String userType;
     private String status;
     private String contact="";
+    private String slug;
 }

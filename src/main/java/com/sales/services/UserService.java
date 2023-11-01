@@ -8,6 +8,7 @@ import com.sales.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 @Service
@@ -22,6 +23,7 @@ public class UserService {
 
 
     public User createUser(UserDto userDto,User loggedUser){
+        HashMap responseObj = new HashMap();
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setSlug(UUID.randomUUID().toString());
