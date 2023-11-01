@@ -5,30 +5,28 @@ import com.sales.dto.UserDto;
 import com.sales.entities.User;
 import com.sales.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
-@Component
-@Transactional
+@Repository
 public class UserHbRepository {
 
     @Autowired
     EntityManager entityManager;
 
     public int updateUser(UserDto userDto,User loggedUser){
-        String strQuery = "update User set " +
+        String strQuery = "update user set " +
                 "username=:username , " +
                 "email=:email,"+
                 "password=:password,"+
                 "contact=:contact,"+
                 "userType=:userType,"+
-                "createdAt=:createdAt,"+
+                "createAt=:createdAt,"+
                 "updatedAt=:updatedAt,"+
                 "updatedBy=:updatedBy,"+
-                "createdBy=:createdBy " +
+                "createdBy=:updatedBy " +
                 "where slug =:slug";
 
         Query query = entityManager.createQuery(strQuery);
@@ -37,19 +35,11 @@ public class UserHbRepository {
         query.setParameter("password", userDto.getPassword());
         query.setParameter("contact", userDto.getContact());
         query.setParameter("userType", userDto.getUserType());
-        query.setParameter("createdAt", Utils.getCurrentMillis());
+        query.setParameter("createAt", Utils.getCurrentMillis());
         query.setParameter("updatedAt", Utils.getCurrentMillis());
         query.setParameter("updatedBy", loggedUser.getId());
         query.setParameter("createdBy", loggedUser.getId());
-        query.setParameter("slug", userDto.getSlug());
-        return query.executeUpdate();
-    }
-
-
-    public int deleteUserBySlug(String slug){
-        String hql = "Update User set isDeleted='Y' where slug=:slug";
-        Query query = entityManager.createQuery(hql);
-        query.setParameter("slug",slug);
+        query.setParameter("slug", loggedUser.getId());
         return query.executeUpdate();
     }
 }
