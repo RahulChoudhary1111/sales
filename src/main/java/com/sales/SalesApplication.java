@@ -11,6 +11,7 @@ public class SalesApplication {
 		SpringApplication.run(SalesApplication.class, args);
 		System.out.println("Hello folks");
 		System.out.println("whats up!");
+		System.out.println("sagar");
 	}
 
 }
