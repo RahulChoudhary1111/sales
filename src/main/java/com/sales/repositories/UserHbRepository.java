@@ -16,7 +16,7 @@ public class UserHbRepository {
     @Autowired
     EntityManager entityManager;
 
-    public User updateUser(UserDto userDto){
+    public int updateUser(UserDto userDto,User loggedUser){
         String strQuery = "update user set " +
                 "username=:username , " +
                 "email=:email,"+
@@ -36,11 +36,10 @@ public class UserHbRepository {
         query.setParameter("contact", userDto.getContact());
         query.setParameter("userType", userDto.getUserType());
         query.setParameter("createAt", Utils.getCurrentMillis());
-        query.setParameter("updatedAt", userDto.getUsername());
-        query.setParameter("updatedBy", userDto.getUsername());
-        query.setParameter("createdBy", userDto.getUsername());
-        query.setParameter("slug", userDto.getUsername());
-        query.executeUpdate();
-        return  null;
+        query.setParameter("updatedAt", Utils.getCurrentMillis());
+        query.setParameter("updatedBy", loggedUser.getId());
+        query.setParameter("createdBy", loggedUser.getId());
+        query.setParameter("slug", loggedUser.getId());
+        return query.executeUpdate();
     }
 }
