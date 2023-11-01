@@ -7,13 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SalesApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(SalesApplication.class, args);
 		System.out.println("Hello rahul");
-		System.out.println("Hello ganesh");
-		System.out.println("Hello folks");
-		System.out.println("whats up!");
-		System.out.println("Hello nanesh");
+		System.out.println("Hello naresh");
 	}
 
 }
