@@ -74,8 +74,8 @@ public class UserService extends RepoContainer {
         return userRepository.save(user);
     }
 
-    public int updateUser(UserDto userDto, User loggedUser) {
-        return userHbRepository.updateUser(userDto, loggedUser);
+    public int updateUser(UserDto userDto, User loggedUser){
+        return userHbRepository.updateUser(userDto,loggedUser);
     }
 
     public User getUserDetail(String slug){
