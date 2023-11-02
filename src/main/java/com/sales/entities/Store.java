@@ -22,15 +22,15 @@ public class Store implements Serializable {
     @Column(name = "id")
     int id;
     @Column(name = "user_id")
-    int user_id;
+    int userId;
     @Column(name = "slug")
     String slug;
     @Column(name = "name")
-    String name;
+    String storeName;
     @Column(name = "address")
     String address;
-    @Column(name = "altitude")
-    Float altitude;
+    @Column(name = "longitude")
+    Float longitude;
     @Column(name = "latitude")
     Float latitude;
     @Column(name = "email")
@@ -44,11 +44,15 @@ public class Store implements Serializable {
     @Column(name = "status")
     String status;
     @Column(name = "is_deleted")
-    String is_deleted;
+    String isDeleted="N";
     @Column(name = "created_at")
-    Long created_at;
+    Long createdAt;
     @Column(name = "created_by")
-    int created_by;
+    int createdBy;
     @Column(name = "updated_at")
-    Long updated_at;
+    Long updatedAt;
+
+    @OneToOne(fetch = FetchType.LAZY)
+            @JoinColumn(name = "user_id")
+    User user;
 }
