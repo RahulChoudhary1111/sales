@@ -39,4 +39,12 @@ public class GlobalException {
         return message;
     }
 
+    @ExceptionHandler(value = {Exception.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorDto resourceNotFoundException(Exception ex, WebRequest request) {
+        ErrorDto message = new ErrorDto(ex.getMessage(),500);
+        ex.printStackTrace();
+        return message;
+    }
+
 }
