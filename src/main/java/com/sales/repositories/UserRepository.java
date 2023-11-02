@@ -17,9 +17,4 @@ public interface UserRepository  extends JpaRepository<User, Integer> {
     User findUserBySlug(String slug);
 
 
-
-
-
-
-
 }
