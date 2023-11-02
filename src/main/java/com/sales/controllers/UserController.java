@@ -4,7 +4,7 @@ package com.sales.controllers;
 import com.sales.dto.UserDto;
 import com.sales.entities.User;
 import com.sales.jwtUtils.JwtToken;
-import com.sales.services.UserService;
+import com.sales.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class UserController {
+public class UserController extends ServiceContainer {
 
-
-    @Autowired
-    UserService userService;
     @Autowired
     JwtToken jwtToken;
 
@@ -48,15 +45,28 @@ public class UserController {
     public ResponseEntity<Map<String,Object>>  register(HttpServletRequest request, @RequestBody  UserDto userDto) {
         HashMap responseObj = new HashMap();
         User logggedUser = (User) request.getAttribute("user");
-        User updatedUser = userService.createUser(userDto,logggedUser);
-        if (updatedUser.getId() > 0){
-            responseObj.put("message", "successfully updated." );
-            responseObj.put("status" , 201);
-            return new ResponseEntity<>(responseObj, HttpStatus.valueOf(201));
+        if (Utils.isEmpty(userDto.getSlug())) {
+            int isUpdated = userService.updateUser(userDto,logggedUser);
+            if (isUpdated > 0) {
+                responseObj.put("message", "successfully updated.");
+                responseObj.put("status", 201);
+            }else {
+                responseObj.put("message", "nothing to updated. may be something went wrong");
+                responseObj.put("status", 400);
+            }
+            return new ResponseEntity<>(responseObj, HttpStatus.valueOf((Integer) responseObj.get("status")));
+
         }else {
-            responseObj.put("message", "successfully inserted." );
-            responseObj.put("status" , 200);
-            return new ResponseEntity<>(responseObj,HttpStatus.valueOf(200));
+            User updatedUser = userService.createUser(userDto,logggedUser);
+            if (updatedUser.getId() > 0) {
+                responseObj.put("res", updatedUser);
+                responseObj.put("message", "successfully inserted.");
+                responseObj.put("status" , 200);
+            }else {
+                responseObj.put("message", "nothing to insert. may be something went wrong");
+                responseObj.put("status", 400);
+            }
+            return new ResponseEntity<>(responseObj,HttpStatus.valueOf((Integer) responseObj.get("status")));
         }
     }
 
