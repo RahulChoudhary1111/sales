@@ -2,6 +2,7 @@ package com.sales.exceptions;
 
 import com.sales.dto.ErrorDto;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,6 +36,17 @@ public class GlobalException {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDto resourceNotFoundException(NullPointerException ex, WebRequest request) {
         ErrorDto message = new ErrorDto("Something went wrong there  is a null pointer exception.",500);
+        ex.printStackTrace();
+        return message;
+    }
+
+
+
+
+    @ExceptionHandler(value = {DataIntegrityViolationException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorDto dataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
+        ErrorDto message = new ErrorDto("Sorry, We can't insert a duplicate entry.",400);
         ex.printStackTrace();
         return message;
     }
