@@ -1,6 +1,5 @@
 package com.sales.services;
 
-import com.sales.dto.PaginationDto;
 import com.sales.dto.StoreDto;
 import com.sales.entities.Store;
 import org.springframework.data.domain.Page;
@@ -14,14 +13,19 @@ import java.util.UUID;
 
 @Service
 public class StoreService extends RepoContainer{
+    public Store findByStoreNameAndEmail(StoreDto storeDto){
+        return  storeRepository.findByStoreNameAndEmail(storeDto.getEmail(), storeDto.getStoreName());
+    }
 
-
-    public Page<Store> getAllStore(PaginationDto paginationDto) {
-        Pageable pageable = getPageable(paginationDto);
+    public Page<Store> getAllStore() {
+        Sort sort = Sort.by("id").ascending();
+        Pageable pageable = PageRequest.of(0, 1, sort);
         return storeRepository.findAll(pageable);
+
     }
 
     public Store createStore(StoreDto storeDto,Store loggedStore){
+        HashMap responseObj = new HashMap();
         Store store = new Store();
         store.setStoreName(storeDto.getStoreName());
         store.setEmail(storeDto.getEmail());

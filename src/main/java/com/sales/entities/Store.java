@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
-import static com.sales.utils.Utils.getCurrentMillis;
 
 @Getter
 @Setter
@@ -18,13 +15,14 @@ import static com.sales.utils.Utils.getCurrentMillis;
 
 @Entity
 @Table(name = "store")
-@Where(clause = "is_deleted != 'Y'")
 public class Store implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
+    @Column(name = "user_id")
+    int userId;
     @Column(name = "slug")
     String slug;
     @Column(name = "name")
@@ -39,7 +37,7 @@ public class Store implements Serializable {
     String email;
     @Column(name = "phone")
     String phone;
-    @Column(name = "discription")
+    @Column(name = "description")
     String description;
     @Column(name = "rating")
     Float rating;
@@ -54,19 +52,7 @@ public class Store implements Serializable {
     @Column(name = "updated_at")
     Long updatedAt;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(fetch = FetchType.LAZY)
+            @JoinColumn(name = "user_id")
     User user;
-
-
-
-/*    public User (User loggedUser) {
-        this.createdAt = getCurrentMillis();
-        this.createdBy = loggedUser.getId();
-        this.updatedAt = getCurrentMillis();
-        this.updatedBy = loggedUser.getId();
-        this.status = "A";
-        this.isDeleted = "N";
-    }*/
-
 }
