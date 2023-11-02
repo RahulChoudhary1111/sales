@@ -53,7 +53,7 @@ public class SalesInterceptor implements HandlerInterceptor {
     public void sendError(HttpServletResponse response ,String message, Integer status) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setStatus(status);
         ErrorDto error = new ErrorDto(message,status);
         response.getWriter().write(mapper.writeValueAsString(error));
     }
