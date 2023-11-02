@@ -11,7 +11,7 @@ public class UserDto {
     private String password;
     private String username;
     private String token;
-    private String userType;
+    private String userType="R";
     private String status;
     private String contact="";
     private String slug;

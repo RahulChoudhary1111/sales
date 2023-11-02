@@ -44,4 +44,12 @@ public class UserHbRepository {
         query.setParameter("slug", userDto.getSlug());
         return query.executeUpdate();
     }
+
+
+    public int deleteUserBySlug(String slug){
+        String hql = "Update User set isDeleted='Y' where slug=:slug";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("slug",slug);
+        return query.executeUpdate();
+    }
 }
