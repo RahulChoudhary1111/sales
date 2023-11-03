@@ -21,8 +21,7 @@ public class Store implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
-    @Column(name = "user_id")
-    int userId;
+//
     @Column(name = "slug")
     String slug;
     @Column(name = "name")
@@ -37,7 +36,7 @@ public class Store implements Serializable {
     String email;
     @Column(name = "phone")
     String phone;
-    @Column(name = "description")
+    @Column(name = "discription")
     String description;
     @Column(name = "rating")
     Float rating;
@@ -52,7 +51,7 @@ public class Store implements Serializable {
     @Column(name = "updated_at")
     Long updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-            @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     User user;
 }
