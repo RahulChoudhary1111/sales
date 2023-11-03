@@ -45,7 +45,7 @@ public class Item implements Serializable {
     @Column(name = "slug")
     int slug;
     @Column(name = "in_stock")
-    String instock;
+    String inStock;
     @ManyToOne
     @JoinColumn(name = "wholesale_id")
     int wholesaleId;
