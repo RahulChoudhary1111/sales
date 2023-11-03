@@ -23,7 +23,6 @@ public class Store implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
-//
     @Column(name = "slug")
     String slug;
     @Column(name = "name")
