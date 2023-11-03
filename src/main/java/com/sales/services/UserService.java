@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -23,12 +25,14 @@ public class UserService extends RepoContainer {
         return userRepository.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
     }
 
+
     public Page<User> getAllUser(PaginationDto paginationDto) {
         Sort sort = Sort.by(paginationDto.getAsc()).ascending();
         Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize(), sort);
         return userRepository.findAll(pageable);
 
     }
+
 
     public Map<String, Object> createOrUpdateUser(UserDto userDto, User loggedUser) {
         Map<String, Object> responseObj = new HashMap<>();
