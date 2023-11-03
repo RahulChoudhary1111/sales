@@ -47,7 +47,7 @@ public class GlobalException {
     @ExceptionHandler(value = {DataIntegrityViolationException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDto dataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
-        ErrorDto message = new ErrorDto("Sorry, We can't insert a duplicate entry.",400);
+        ErrorDto message = new ErrorDto(ex.getMessage(),400);
         ex.printStackTrace();
         return message;
     }
