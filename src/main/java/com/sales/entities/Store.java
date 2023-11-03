@@ -52,6 +52,8 @@ public class Store implements Serializable {
     int createdBy;
     @Column(name = "updated_at")
     Long updatedAt;
+    @Column(name = "updated_by")
+    int updatedBy;
 
     @OneToOne
     @JoinColumn(name = "user_id")

@@ -25,10 +25,8 @@ public class UserHbRepository {
                 "password=:password,"+
                 "contact=:contact,"+
                 "userType=:userType,"+
-                "createdAt=:createdAt,"+
                 "updatedAt=:updatedAt,"+
                 "updatedBy=:updatedBy,"+
-                "createdBy=:createdBy " +
                 "where slug =:slug";
 
         Query query = entityManager.createQuery(strQuery);
@@ -37,10 +35,8 @@ public class UserHbRepository {
         query.setParameter("password", userDto.getPassword());
         query.setParameter("contact", userDto.getContact());
         query.setParameter("userType", userDto.getUserType());
-        query.setParameter("createdAt", Utils.getCurrentMillis());
         query.setParameter("updatedAt", Utils.getCurrentMillis());
         query.setParameter("updatedBy", loggedUser.getId());
-        query.setParameter("createdBy", loggedUser.getId());
         query.setParameter("slug", userDto.getSlug());
         return query.executeUpdate();
     }
