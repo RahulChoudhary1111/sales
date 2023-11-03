@@ -1,6 +1,7 @@
 package com.sales.services;
 
 
+import com.sales.repositories.StoreHbRepository;
 import com.sales.repositories.StoreRepository;
 import com.sales.repositories.UserHbRepository;
 import com.sales.repositories.UserRepository;
@@ -12,6 +13,8 @@ public class RepoContainer {
 
     @Autowired
     StoreRepository storeRepository;
+    @Autowired
+    StoreHbRepository storeHbRepository;
     @Autowired
     UserRepository userRepository;
 

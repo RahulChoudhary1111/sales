@@ -1,21 +1,48 @@
 package com.sales.controllers;
 
 import com.sales.dto.PaginationDto;
+import com.sales.dto.StoreDto;
 import com.sales.entities.Store;
+import com.sales.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
+@RequestMapping("store")
 public class StoreController extends ServiceContainer{
 
-    @GetMapping("/store/all")
-    public ResponseEntity<Page<Store>> getAllStore(@RequestBody(required = false) PaginationDto paginationDto){
+    @PostMapping("/all")
+    public ResponseEntity<Page<Store>> getAllStore(@RequestBody PaginationDto paginationDto){
         Page<Store> storePage =  storeService.getAllStore(paginationDto);
         return new ResponseEntity<>(storePage, HttpStatus.OK);
+    }
+
+    @GetMapping("/delete/{slug}")
+    public ResponseEntity<Map<String,Object>> deleteStore(@PathVariable String slug) {
+        Map responseObj = new HashMap();
+        int isUpdated = storeService.deleteStoreBySlug(slug);
+        if (isUpdated > 0) {
+            responseObj.put("message", "Store has been successfully deleted.");
+            responseObj.put("status", 200);
+        }else{
+            responseObj.put("message", "There is nothing to delete.recheck you parameters");
+            responseObj.put("status", 400);
+        }
+        return new ResponseEntity<>(responseObj,HttpStatus.valueOf((Integer) responseObj.get("status")));
+    }
+
+    @PostMapping(value = {"/add","/update"})
+    public ResponseEntity<Map<String,Object>>  register(HttpServletRequest request, @RequestBody StoreDto storeDto) {
+        Map responseObj = new HashMap();
+        User logggedUser = (User) request.getAttribute("user");
+        responseObj = storeService.createOrUpdateStore(storeDto,logggedUser);
+        return new ResponseEntity<>(responseObj,HttpStatus.valueOf((Integer) responseObj.get("status")));
     }
 
 }
