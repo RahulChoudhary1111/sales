@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "item")
+@Where(clause = "is_deleted != 'y'")
 public class Item implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +45,10 @@ public class Item implements Serializable {
     @Column(name = "updated_by")
     Integer updatedBy;
     @Column(name = "slug")
-    int slug;
+    String slug;
     @Column(name = "in_stock")
     String inStock;
     @ManyToOne
     @JoinColumn(name = "wholesale_id")
-    int wholesaleId;
+    Store wholesaleId;
 }

@@ -24,7 +24,6 @@ public class StoreService extends RepoContainer{
     }
 
     public Store createStore(StoreDto storeDto,Store loggedStore){
-        HashMap responseObj = new HashMap();
         Store store = new Store();
         store.setStoreName(storeDto.getStoreName());
         store.setEmail(storeDto.getEmail());
