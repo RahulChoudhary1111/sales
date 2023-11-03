@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Getter
@@ -19,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 @Where(clause = "is_deleted != 'Y' ")
-public class User implements Serializable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
