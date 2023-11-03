@@ -1,6 +1,7 @@
 package com.sales.services;
 
 
+import com.sales.dto.PaginationDto;
 import com.sales.dto.UserDto;
 import com.sales.entities.User;
 import com.sales.utils.Utils;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
