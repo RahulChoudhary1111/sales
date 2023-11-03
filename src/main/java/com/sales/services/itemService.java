@@ -32,13 +32,11 @@ public class itemService extends RepoContainer {
     public Item addItem(ItemDto itemDto, User loggedUser){
         Item item = new Item();
         item.setName(itemDto.getName());
-        item.setWholesale_id(item.getWholesale_id());
         item.setPrice(item.getPrice());
         item.setDiscount(item.getDiscount());
         item.setRating(item.getRating());
         item.setDescription(item.getDescription());
-        item.setInstock(item.getInstock() );
-
+        item.setInStock(item.getInStock());
         item.setUpdatedAt(Utils.getCurrentMillis());
         item.setCreatedAt(Utils.getCurrentMillis());
 //        item.setCreatedBy(loggedUser.getId());
