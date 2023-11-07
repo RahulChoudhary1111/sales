@@ -1,10 +1,7 @@
 package com.sales.services;
 
 
-import com.sales.repositories.StoreHbRepository;
-import com.sales.repositories.StoreRepository;
-import com.sales.repositories.UserHbRepository;
-import com.sales.repositories.UserRepository;
+import com.sales.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +18,6 @@ public class RepoContainer {
     @Autowired
     UserHbRepository userHbRepository;
 
+    @Autowired
+    ItemRepository itemRepository;
 }

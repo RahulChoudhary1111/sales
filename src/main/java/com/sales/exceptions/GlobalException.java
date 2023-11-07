@@ -47,9 +47,10 @@ public class GlobalException {
     @ExceptionHandler(value = {DataIntegrityViolationException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDto dataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
-        ErrorDto message = new ErrorDto(ex.getMessage(),400);
+        String message = ex.getMessage().contains("constraint [null]") ? "Required parameters can't be null." : ex.getMessage();
+        ErrorDto err = new ErrorDto(message,400);
         ex.printStackTrace();
-        return message;
+        return err;
     }
 
 
