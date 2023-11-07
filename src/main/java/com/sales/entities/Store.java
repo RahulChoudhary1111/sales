@@ -8,6 +8,9 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
+
+import static com.sales.utils.Utils.getCurrentMillis;
 
 @Getter
 @Setter
@@ -23,7 +26,6 @@ public class Store implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     int id;
-//
     @Column(name = "slug")
     String slug;
     @Column(name = "name")
@@ -53,9 +55,21 @@ public class Store implements Serializable {
     @Column(name = "updated_at")
     Long updatedAt;
     @Column(name = "updated_by")
-    int updatedBy;
-
+    Integer updatedBy;
     @OneToOne
     @JoinColumn(name = "user_id")
     User user;
+
+
+
+    public Store (User loggedUser) {
+        this.createdAt = getCurrentMillis();
+        this.createdBy = loggedUser.getId();
+        this.updatedAt = getCurrentMillis();
+        this.updatedBy = loggedUser.getId();
+        this.status = "A";
+        this.isDeleted = "N";
+        this.slug = UUID.randomUUID().toString();
+    }
+
 }

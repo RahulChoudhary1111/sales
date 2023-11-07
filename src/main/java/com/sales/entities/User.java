@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
-import static com.sales.utils.Utils.getCurrentMillis;
 
 import javax.persistence.*;
+import java.util.UUID;
+
+import static com.sales.utils.Utils.getCurrentMillis;
 
 
 @Getter
@@ -51,6 +53,7 @@ public class User {
 
 
     public User (User loggedUser) {
+        this.slug = UUID.randomUUID().toString();
         this.createdAt = getCurrentMillis();
         this.createdBy = loggedUser.getId();
         this.updatedAt = getCurrentMillis();

@@ -1,24 +1,23 @@
 package com.sales.services;
 
 
-import com.sales.dto.PaginationDto;
 import com.sales.dto.UserDto;
+import com.sales.dto.UserSearchFilters;
 import com.sales.entities.User;
 import com.sales.utils.Utils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.sales.specifications.UserSpecifications.*;
+
 @Service
 public class UserService extends RepoContainer {
-
-
 
 
     public User findByEmailAndPassword(UserDto userDto) {
@@ -26,11 +25,16 @@ public class UserService extends RepoContainer {
     }
 
 
-    public Page<User> getAllUser(PaginationDto paginationDto) {
-        Sort sort = Sort.by(paginationDto.getAsc()).ascending();
-        Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize(), sort);
-        return userRepository.findAll(pageable);
-
+    public Page<User> getAllUser(UserSearchFilters filters) {
+        Specification<User> specification = Specification.where(
+            containsName(filters.getName())
+            .and(greaterThanOrEqualFromDate(filters.getFromDate()))
+            .and(lessThanOrEqualToToDate(filters.getToDate()))
+            .and(isStatus(filters.getStatus()))
+            .and(hasUserType(filters.getUserType()))
+        );
+        Pageable pageable = getPageable(filters);
+        return userRepository.findAll(specification,pageable);
     }
 
 
@@ -61,18 +65,13 @@ public class UserService extends RepoContainer {
     }
 
     public User createUser(UserDto userDto, User loggedUser) {
-        User user = new User();
+        User user = new User(loggedUser);
         user.setUsername(userDto.getUsername());
         user.setSlug(UUID.randomUUID().toString());
         user.setPassword(userDto.getPassword());
-        user.setStatus("A");
         user.setContact(userDto.getContact());
         user.setEmail(userDto.getEmail());
         user.setUserType(userDto.getUserType());
-        user.setUpdatedAt(Utils.getCurrentMillis());
-        user.setCreatedAt(Utils.getCurrentMillis());
-        user.setCreatedBy(loggedUser.getId());
-        user.setUpdatedBy(loggedUser.getId());
         return userRepository.save(user);
     }
 

@@ -1,8 +1,8 @@
 package com.sales.controllers;
 
 
-import com.sales.dto.PaginationDto;
 import com.sales.dto.UserDto;
+import com.sales.dto.UserSearchFilters;
 import com.sales.entities.User;
 import com.sales.jwtUtils.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class UserController extends ServiceContainer {
     @Autowired
     JwtToken jwtToken;
 
-    @GetMapping("/auth")
-    public ResponseEntity<Page<User>> getAllUsers(@RequestBody PaginationDto paginationDto){
-        Page<User> userPage =  userService.getAllUser(paginationDto);
+    @PostMapping("/auth/all")
+    public ResponseEntity<Page<User>> getAllUsers(@RequestBody UserSearchFilters searchFilters){
+        Page<User> userPage =  userService.getAllUser(searchFilters);
         return new ResponseEntity<>(userPage,HttpStatus.OK);
     }
 

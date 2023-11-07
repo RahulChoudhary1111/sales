@@ -1,29 +1,25 @@
 package com.sales.services;
 
-import com.sales.dto.PaginationDto;
+import com.sales.dto.SearchFilters;
 import com.sales.dto.StoreDto;
 import com.sales.entities.Store;
 import com.sales.entities.User;
 import com.sales.utils.Utils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class StoreService extends RepoContainer{
 
 
-    public Page<Store> getAllStore(PaginationDto paginationDto) {
-        Sort sort = Sort.by(paginationDto.getAsc()).ascending();
-        Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize(), sort);
+    public Page<Store> getAllStore(SearchFilters searchFilters) {
+        Pageable pageable = getPageable(searchFilters);
         return storeRepository.findAll(pageable);
-
     }
 
     public Map<String, Object> createOrUpdateStore(StoreDto storeDto, User loggedUser) {
@@ -54,30 +50,21 @@ public class StoreService extends RepoContainer{
 
     public Store createStore(StoreDto storeDto, User loggedUser){
 
-        if(storeDto.getUserId()==null || storeDto.getUserId()<1 ) return new Store();
 
         Store store = new Store();
+        if(storeDto.getUserId()==null || storeDto.getUserId()<1 ) return store;
+        Optional<User> storeOwner = userRepository.findById(storeDto.getUserId());
+        if (storeOwner == null) return store;
+
+        store = new Store(loggedUser);
         store.setStoreName(storeDto.getStoreName());
         store.setEmail(storeDto.getEmail());
         store.setAddress(storeDto.getAddress());
         store.setLatitude(storeDto.getLatitude());
         store.setLongitude(storeDto.getLongitude());
         store.setDescription(storeDto.getDescription());
-        store.setIsDeleted("N");
         store.setPhone(storeDto.getPhone());
         store.setRating(storeDto.getRating());
-        store.setUpdatedBy(loggedUser.getId());
-        store.setUpdatedAt(Utils.getCurrentMillis());
-        store.setCreatedAt(Utils.getCurrentMillis());
-        store.setCreatedBy(loggedUser.getId());
-        store.setSlug(UUID.randomUUID().toString());
-        store.setStatus("A");
-
-
-        User storeOwner = new User();
-        storeOwner.setId(storeDto.getUserId());
-        store.setUser(storeOwner);
-
         return storeRepository.save(store);
     }
 

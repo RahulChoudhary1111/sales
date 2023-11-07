@@ -1,17 +1,12 @@
 package com.sales.controllers;
 
-import com.sales.dto.ItemDto;
 import com.sales.dto.PaginationDto;
 import com.sales.entities.Item;
-import com.sales.entities.Store;
-import com.sales.services.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +15,7 @@ import java.util.Map;
 public class ItemController extends ServiceContainer {
     @GetMapping("/all")
     public ResponseEntity<Page<Item>> getAllItem(@RequestBody  PaginationDto paginationDto) {
-        Page<Item> alItems = itemService.getAllItems();
+        Page<Item> alItems = itemService.getAllItems(paginationDto);
         return new ResponseEntity<>(alItems, HttpStatus.OK);
     }
 

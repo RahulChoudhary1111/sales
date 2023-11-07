@@ -1,6 +1,6 @@
 package com.sales.controllers;
 
-import com.sales.dto.PaginationDto;
+import com.sales.dto.SearchFilters;
 import com.sales.dto.StoreDto;
 import com.sales.entities.Store;
 import com.sales.entities.User;
@@ -18,8 +18,8 @@ import java.util.Map;
 public class StoreController extends ServiceContainer{
 
     @PostMapping("/all")
-    public ResponseEntity<Page<Store>> getAllStore(@RequestBody PaginationDto paginationDto){
-        Page<Store> storePage =  storeService.getAllStore(paginationDto);
+    public ResponseEntity<Page<Store>> getAllStore(@RequestBody SearchFilters searchFilters){
+        Page<Store> storePage =  storeService.getAllStore(searchFilters);
         return new ResponseEntity<>(storePage, HttpStatus.OK);
     }
 
