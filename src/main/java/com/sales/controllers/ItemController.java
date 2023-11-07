@@ -16,15 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = {"item", "items"})
 public class ItemController extends ServiceContainer {
-    @GetMapping("/item/all")
-    public ResponseEntity<Page<Item>> getAllItem() {
+    @GetMapping("/all")
+    public ResponseEntity<Page<Item>> getAllItem(@RequestBody  PaginationDto paginationDto) {
         Page<Item> alItems = itemService.getAllItems();
-        //Page<Item> allItems =  itemService.getAllItems(paginationDto);
         return new ResponseEntity<>(alItems, HttpStatus.OK);
     }
 
-    @GetMapping("/item/slug/{slug}")
+    @GetMapping("/detail/{slug}")
     public ResponseEntity<Map<String, Object>> getItem(@PathVariable String slug) {
         Map<String, Object> responseObj = new HashMap<>();
         Item alItems = itemService.getItemBySlug(slug);

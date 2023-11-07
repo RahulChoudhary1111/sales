@@ -10,6 +10,7 @@ public class PaginationDto {
 
     int page = 0;
     int size = 10;
-    String asc = "id";
+    String sortBy = "id";
+    String order = "ASC";
 
 }

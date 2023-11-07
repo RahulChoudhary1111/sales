@@ -17,10 +17,8 @@ public class StoreService extends RepoContainer{
 
 
     public Page<Store> getAllStore(PaginationDto paginationDto) {
-        Sort sort = Sort.by(paginationDto.getAsc()).ascending();
-        Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize(), sort);
+        Pageable pageable = getPageable(paginationDto);
         return storeRepository.findAll(pageable);
-
     }
 
     public Store createStore(StoreDto storeDto,Store loggedStore){

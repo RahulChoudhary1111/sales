@@ -2,6 +2,7 @@ package com.sales.services;
 
 
 import com.sales.dto.ItemDto;
+import com.sales.dto.PaginationDto;
 import com.sales.entities.Item;
 import com.sales.entities.User;
 import com.sales.utils.Utils;
@@ -17,7 +18,8 @@ public class ItemService extends RepoContainer {
 
 
 
-    public Page<Item> getAllItems() {
+    public Page<Item> getAllItems(PaginationDto paginationDto) {
+
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = PageRequest.of(0, 1, sort);
         return itemRepository.findAll(pageable);

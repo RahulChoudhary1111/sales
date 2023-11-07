@@ -9,6 +9,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.io.Serializable;
 
+import static com.sales.utils.Utils.getCurrentMillis;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -55,4 +57,16 @@ public class Store implements Serializable {
     @OneToOne
     @JoinColumn(name = "user_id")
     User user;
+
+
+
+/*    public User (User loggedUser) {
+        this.createdAt = getCurrentMillis();
+        this.createdBy = loggedUser.getId();
+        this.updatedAt = getCurrentMillis();
+        this.updatedBy = loggedUser.getId();
+        this.status = "A";
+        this.isDeleted = "N";
+    }*/
+
 }

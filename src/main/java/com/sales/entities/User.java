@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+import static com.sales.utils.Utils.getCurrentMillis;
 
 import javax.persistence.*;
 
@@ -38,7 +39,7 @@ public class User {
     @Column(name = "status")
     String status;
     @Column(name = "is_deleted")
-    String isDeleted="N";
+    String isDeleted;
     @Column(name = "created_at")
     Long createdAt;
     @Column(name = "updated_at")
@@ -47,4 +48,15 @@ public class User {
     Integer createdBy;
     @Column(name = "updated_by")
     Integer updatedBy;
+
+
+    public User (User loggedUser) {
+        this.createdAt = getCurrentMillis();
+        this.createdBy = loggedUser.getId();
+        this.updatedAt = getCurrentMillis();
+        this.updatedBy = loggedUser.getId();
+        this.status = "A";
+        this.isDeleted = "N";
+    }
+
 }
