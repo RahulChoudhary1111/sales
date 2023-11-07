@@ -3,13 +3,11 @@ package com.sales.services;
 import com.sales.dto.PaginationDto;
 import com.sales.dto.StoreDto;
 import com.sales.entities.Store;
+import com.sales.entities.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 @Service
@@ -17,15 +15,12 @@ public class StoreService extends RepoContainer{
 
 
     public Page<Store> getAllStore(PaginationDto paginationDto) {
-        Sort sort = Sort.by(paginationDto.getAsc()).ascending();
-        Pageable pageable = PageRequest.of(paginationDto.getPage(), paginationDto.getSize(), sort);
+        Pageable pageable = getPageable(paginationDto);
         return storeRepository.findAll(pageable);
-
     }
 
-    public Store createStore(StoreDto storeDto,Store loggedStore){
-        HashMap responseObj = new HashMap();
-        Store store = new Store();
+    public Store createStore(StoreDto storeDto, User loggedUser){
+        Store store = new Store(loggedUser);
         store.setStoreName(storeDto.getStoreName());
         store.setEmail(storeDto.getEmail());
         store.setAddress(storeDto.getAddress());
