@@ -1,4 +1,4 @@
-package com.sales.controllers;
+package com.sales.admin.controllers;
 
 
 import com.sales.dto.UserDto;

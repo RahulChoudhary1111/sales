@@ -1,4 +1,4 @@
-package com.sales.controllers;
+package com.sales.admin.controllers;
 
 import com.sales.dto.SearchFilters;
 import com.sales.dto.StoreDto;
@@ -38,7 +38,7 @@ public class StoreController extends ServiceContainer{
     }
 
     @PostMapping(value = {"/add","/update"})
-    public ResponseEntity<Map<String,Object>>  register(HttpServletRequest request, @RequestBody StoreDto storeDto) {
+    public ResponseEntity<Map<String,Object>> addStoreOrUpdateStore(HttpServletRequest request, @RequestBody StoreDto storeDto) {
         Map responseObj = new HashMap();
         User logggedUser = (User) request.getAttribute("user");
         responseObj = storeService.createOrUpdateStore(storeDto,logggedUser);

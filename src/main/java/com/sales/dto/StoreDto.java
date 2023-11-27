@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StoreDto {
+public class StoreDto extends AddressDto {
     private String email;
     private Integer userId;
     private String storeName;
@@ -14,7 +14,4 @@ public class StoreDto {
     private String phone="";
     private String slug;
     private String description ="";
-    private Float latitude = (float) 0;
-    private Float longitude =  (float) 0;
-    private String address;
 }

@@ -40,6 +40,8 @@ public class Item implements Serializable {
     String isDeleted;
     @Column(name = "created_at")
     Long createdAt;
+    @Column(name = "created_by")
+    Integer createdBy;
     @Column(name = "updated_at")
     Long updatedAt;
     @Column(name = "updated_by")

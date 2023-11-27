@@ -1,8 +1,8 @@
-package com.sales.controllers;
+package com.sales.admin.controllers;
 
-import com.sales.services.ItemService;
-import com.sales.services.StoreService;
-import com.sales.services.UserService;
+import com.sales.admin.services.ItemService;
+import com.sales.admin.services.StoreService;
+import com.sales.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -14,4 +14,5 @@ public class ItemDto {
     private float rating;
     private String description;
     private String InStock;
+    private  String slug;
 }

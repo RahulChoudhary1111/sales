@@ -30,12 +30,6 @@ public class Store implements Serializable {
     String slug;
     @Column(name = "name")
     String storeName;
-    @Column(name = "address")
-    String address;
-    @Column(name = "longitude")
-    Float longitude;
-    @Column(name = "latitude")
-    Float latitude;
     @Column(name = "email")
     String email;
     @Column(name = "phone")
@@ -60,7 +54,9 @@ public class Store implements Serializable {
     @JoinColumn(name = "user_id")
     User user;
 
-
+    @OneToOne
+    @JoinColumn(name = "address")
+    Address address;
 
     public Store (User loggedUser) {
         this.createdAt = getCurrentMillis();

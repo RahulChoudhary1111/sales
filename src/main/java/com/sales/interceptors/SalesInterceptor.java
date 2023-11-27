@@ -2,10 +2,10 @@ package com.sales.interceptors;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sales.admin.repositories.UserRepository;
 import com.sales.dto.ErrorDto;
 import com.sales.entities.User;
 import com.sales.jwtUtils.JwtToken;
-import com.sales.repositories.UserRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

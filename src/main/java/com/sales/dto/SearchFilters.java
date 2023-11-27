@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SearchFilters {
+public class SearchFilters extends ItemSearchFields {
 
     String name = "";
     String status="A";
@@ -17,4 +17,5 @@ public class SearchFilters {
     String order = "desc";
     int pageNumber = 0;
     int size = 10;
+    String slug;
 }
