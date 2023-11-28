@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = {"item", "items"})
+@RequestMapping(value = {"admin/item", "admin/items"})
 public class ItemController extends ServiceContainer {
     @GetMapping("/all")
     public ResponseEntity<Page<Item>> getAllItem(@RequestBody SearchFilters searchFilters) {

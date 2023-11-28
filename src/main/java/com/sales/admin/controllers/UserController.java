@@ -16,12 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("admin/auth")
 public class UserController extends ServiceContainer {
 
     @Autowired
     JwtToken jwtToken;
 
-    @PostMapping("/auth/all")
+    @PostMapping("/all")
     public ResponseEntity<Page<User>> getAllUsers(@RequestBody UserSearchFilters searchFilters){
         Page<User> userPage =  userService.getAllUser(searchFilters);
         return new ResponseEntity<>(userPage,HttpStatus.OK);
@@ -45,7 +46,7 @@ public class UserController extends ServiceContainer {
     }
 
 
-    @PostMapping(value = {"/auth/add","/auth/update"})
+    @PostMapping(value = {"/add","/update"})
     public ResponseEntity<Map<String,Object>>  register(HttpServletRequest request, @RequestBody  UserDto userDto) {
         Map responseObj = new HashMap();
         User logggedUser = (User) request.getAttribute("user");
@@ -53,7 +54,7 @@ public class UserController extends ServiceContainer {
         return new ResponseEntity<>(responseObj,HttpStatus.valueOf((Integer) responseObj.get("status")));
         }
 
-    @GetMapping("/auth/detail/{slug}")
+    @GetMapping("/detail/{slug}")
     public ResponseEntity<Map<String,Object>> getDetailUser(@PathVariable String slug) {
         Map responseObj = new HashMap();
         User user = userService.getUserDetail(slug);
@@ -67,7 +68,7 @@ public class UserController extends ServiceContainer {
         return new ResponseEntity<>(responseObj,HttpStatus.valueOf((Integer) responseObj.get("status")));
     }
 
-    @GetMapping("/auth/delete/{slug}")
+    @GetMapping("/delete/{slug}")
     public ResponseEntity<Map<String,Object>> deleteUserBySlug(@PathVariable String slug) {
         Map responseObj = new HashMap();
         int isUpdated = userService.deleteUserBySlug(slug);

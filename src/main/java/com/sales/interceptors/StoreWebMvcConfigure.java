@@ -24,7 +24,7 @@ public class StoreWebMvcConfigure implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String arr[] = {
-                "/login",
+                "/admin/auth/login",
                 "/v3/api-docs",
                 "/swagger-resources/**",
                 "/swagger-ui/**",

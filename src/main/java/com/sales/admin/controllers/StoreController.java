@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("store")
+@RequestMapping("admin/store")
 public class StoreController extends ServiceContainer{
 
     @PostMapping("/all")
